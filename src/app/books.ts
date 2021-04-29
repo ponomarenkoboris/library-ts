@@ -3,12 +3,10 @@ import {RootState} from "./state";
 
 interface Books {
     allBooks: any[],
-    quantity: number
 }
 
 const initialState: Books = {
     allBooks: [],
-    quantity: 0
 }
 
 export const booksSlice = createSlice({
@@ -16,9 +14,7 @@ export const booksSlice = createSlice({
     initialState,
     reducers: {
         addNewBooks: (state, action: PayloadAction<any[]>) => {
-            // state.allBooks = [ ...action.payload ]
-            state.allBooks.push(action.payload)
-            state.quantity = action.payload.length
+            state.allBooks = [ ...action.payload ]
         }
     }
 });

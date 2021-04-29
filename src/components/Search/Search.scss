@@ -1,0 +1,23 @@
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .input-textfield {
+        height: 20px;
+        width: 90%;
+        font-size: 1rem;
+        padding: 2.5px 5px;
+        outline: none;
+        margin-right: 10px;
+        border-radius: 13px;
+    }
+
+    .search-button {
+        cursor: pointer;
+        height: 30px;
+        width: 70px;
+        outline: none;
+
+    }
+}

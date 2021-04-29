@@ -5,11 +5,15 @@
     align-items: center;
 
     .search-container {
-
+        width: 40%;
     }
 
     .results-container {
-
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 50px;
     }
 
     .modal-container {

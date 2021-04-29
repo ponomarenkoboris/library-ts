@@ -4,6 +4,7 @@ interface LayoutProps {
     children: React.ReactNode
 }
 
+// TODO write correct function type
 interface ContextProps {
     status: string,
     setStatus: Function
@@ -11,12 +12,11 @@ interface ContextProps {
 
 const LoaderContext = createContext<ContextProps>({
     status: 'disable',
-    setStatus: () => status === 'enable' ? status = 'disable' : status = 'enable'
+    setStatus: (): string => status === 'enable' ? status = 'disable' : status = 'enable'
 });
 
 export const LoaderProvider = (props: LayoutProps) => {
     const [status, setStatus] = useState('disable');
-    console.log(status)
     return (
         <LoaderContext.Provider value={{ status, setStatus }}>
             {props.children}

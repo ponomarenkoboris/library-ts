@@ -1,0 +1,12 @@
+.book-wrapper {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    cursor: pointer;
+    margin: 10px 10px;
+    background-color: #ffffff;
+    box-shadow:  20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+}
