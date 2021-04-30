@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {RootState} from "./state";
+// import {RootState} from "./state";
 
 interface Books {
     allBooks: any[],
+    modalView: object
 }
 
 const initialState: Books = {
     allBooks: [],
+    modalView: {}
 }
 
 export const booksSlice = createSlice({
@@ -15,11 +17,14 @@ export const booksSlice = createSlice({
     reducers: {
         addNewBooks: (state, action: PayloadAction<any[]>) => {
             state.allBooks = [ ...action.payload ]
+        },
+        lookClose: (state, action: PayloadAction<any>) => {
+            state.modalView = { ...action.payload }
         }
     }
 });
 
-export const { addNewBooks } = booksSlice.actions
-export const getAllBooksInStorage = (state: RootState) => state.books.allBooks
+export const { addNewBooks, lookClose } = booksSlice.actions
+// export const getAllBooksInStorage = (state: RootState) => state.books.allBooks
 export default booksSlice.reducer
 

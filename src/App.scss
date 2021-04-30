@@ -5,13 +5,14 @@
     align-items: center;
 
     .search-container {
+        margin-top: 20px;
         width: 40%;
     }
 
     .results-container {
         width: 80%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         flex-wrap: wrap;
         margin-top: 50px;
     }

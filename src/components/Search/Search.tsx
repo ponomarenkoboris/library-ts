@@ -4,30 +4,48 @@ import { addNewBooks } from "../../app/books";
 import { useLoaderContext } from "../../context/LoaderContext";
 import './Search.scss';
 
-function debounce<F extends Function>(fn: F) {
+type DebounceReturn = (this: any) => void
+type DebounceProps = () => Promise<void>
+function debounce<F extends DebounceProps>(fn: F): DebounceReturn {
     let timeout: ReturnType<typeof setTimeout>;
-    return function(this: any) {
+    return function() {
         clearTimeout(timeout);
         timeout = setTimeout(() => fn.call(this), 1000)
     }
 }
 
+const accessControlToMakeSearch: (text: HTMLInputElement, button: HTMLButtonElement) =>
+    void = (text, button) => {
+    if (text.readOnly) {
+        text.value = ''
+        text.readOnly = false
+        button.disabled = false
+    } else {
+        text.readOnly = true
+        button.disabled = true
+    }
+}
+
 export function Search() {
     const inputField = useRef<HTMLInputElement>(null);
+    const buttonSearch = useRef<HTMLButtonElement>(null);
     const dispatch = useAppDispatch()
-    const { setStatus } = useLoaderContext()
+    const { setLoaderStatus } = useLoaderContext()
 
-    async function getRequest() {
-        if (!inputField.current?.value.trim()) return;
+    async function getRequest(): Promise<void> {
+        if (!inputField.current?.value.trim() || !buttonSearch.current) return;
+        accessControlToMakeSearch(inputField.current, buttonSearch.current)
         try {
-            setStatus('enable')
+            setLoaderStatus('enable')
             const response = await fetch(`http://openlibrary.org/search.json?q=${inputField.current?.value}`);
             const data = await response.json();
             if (data.docs) {
                 dispatch(addNewBooks(data.docs))
-                setStatus('disable')
+                setLoaderStatus('disable')
+                accessControlToMakeSearch(inputField.current, buttonSearch.current)
             } else {
-                setStatus('disable')
+                accessControlToMakeSearch(inputField.current, buttonSearch.current)
+                setLoaderStatus('disable')
                 // обработка ошибки
             }
         } catch (e) {
@@ -38,7 +56,7 @@ export function Search() {
     return (
         <div className="input-wrapper">
             <input ref={inputField} onChange={debounce(getRequest)} type="text" className="input-textfield" placeholder="Вевдите название книги..." />
-            <button onClick={getRequest} className="search-button">Поиск</button>
+            <button ref={buttonSearch} onClick={getRequest} className="search-button">Поиск</button>
         </div>
     )
 }

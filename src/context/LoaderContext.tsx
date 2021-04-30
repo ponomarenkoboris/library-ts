@@ -4,21 +4,20 @@ interface LayoutProps {
     children: React.ReactNode
 }
 
-// TODO write correct function type
 interface ContextProps {
-    status: string,
-    setStatus: Function
+    loaderStatus: string,
+    setLoaderStatus: (params: string) => void
 }
 
 const LoaderContext = createContext<ContextProps>({
-    status: 'disable',
-    setStatus: (): string => status === 'enable' ? status = 'disable' : status = 'enable'
+    loaderStatus: 'disable',
+    setLoaderStatus: () => status === 'enable' ? status = 'disable' : status = 'enable'
 });
 
 export const LoaderProvider = (props: LayoutProps) => {
-    const [status, setStatus] = useState('disable');
+    const [loaderStatus, setLoaderStatus] = useState('disable');
     return (
-        <LoaderContext.Provider value={{ status, setStatus }}>
+        <LoaderContext.Provider value={{ loaderStatus, setLoaderStatus }}>
             {props.children}
         </LoaderContext.Provider>
     )
