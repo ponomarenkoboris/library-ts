@@ -20,9 +20,11 @@ const accessControlToMakeSearch: (text: HTMLInputElement, button: HTMLButtonElem
         text.value = ''
         text.readOnly = false
         button.disabled = false
+        button.style.pointerEvents = 'auto'
     } else {
         text.readOnly = true
         button.disabled = true
+        button.style.pointerEvents = 'none'
     }
 }
 
@@ -40,16 +42,17 @@ export function Search() {
             const response = await fetch(`http://openlibrary.org/search.json?q=${inputField.current?.value}`);
             const data = await response.json();
             if (data.docs) {
+                console.log(data.docs)
                 dispatch(addNewBooks(data.docs))
                 setLoaderStatus('disable')
                 accessControlToMakeSearch(inputField.current, buttonSearch.current)
             } else {
                 accessControlToMakeSearch(inputField.current, buttonSearch.current)
                 setLoaderStatus('disable')
-                // обработка ошибки
             }
         } catch (e) {
             console.error(e)
+            // обработка ошибки
         }
     }
 

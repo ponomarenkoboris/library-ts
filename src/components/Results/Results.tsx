@@ -21,7 +21,7 @@ export function Results() {
                 <div className="book-wrapper"
                      key={idx}
                      data-title={book.title}
-                     data-author={book.author}
+                     data-author={book.author_name}
                      data-firstyear={book.first_publish_year}
                      data-isbn={book.isbn}
                 >

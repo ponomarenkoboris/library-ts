@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import {RootState} from "./state";
+// import { StoreValidation } from "../namespace/storeValidation";
+
+// TODO use namespace
 
 interface Books {
     allBooks: any[],
@@ -18,13 +20,17 @@ export const booksSlice = createSlice({
         addNewBooks: (state, action: PayloadAction<any[]>) => {
             state.allBooks = [ ...action.payload ]
         },
-        lookClose: (state, action: PayloadAction<any>) => {
+        openModal: (state, action: { payload: any }) => {
+            if (typeof action.payload === undefined) return
             state.modalView = { ...action.payload }
+        },
+        closeModal: (state) => {
+            state.modalView = {}
         }
     }
 });
 
-export const { addNewBooks, lookClose } = booksSlice.actions
+export const { addNewBooks, openModal, closeModal } = booksSlice.actions
 // export const getAllBooksInStorage = (state: RootState) => state.books.allBooks
 export default booksSlice.reducer
 
