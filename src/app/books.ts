@@ -24,13 +24,15 @@ export const booksSlice = createSlice({
             if (typeof action.payload === undefined) return
             state.modalView = { ...action.payload }
         },
-        closeModal: (state) => {
+        clearModalData: (state) => {
             state.modalView = {}
+            const body: HTMLElement | null = document.querySelector('body');
+            if (body?.style) body.style.overflowY = 'initial';
         }
     }
 });
 
-export const { addNewBooks, openModal, closeModal } = booksSlice.actions
+export const { addNewBooks, openModal, clearModalData } = booksSlice.actions
 // export const getAllBooksInStorage = (state: RootState) => state.books.allBooks
 export default booksSlice.reducer
 

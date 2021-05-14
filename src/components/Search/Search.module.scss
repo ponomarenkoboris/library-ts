@@ -1,9 +1,9 @@
-.input-wrapper {
+.inputWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    .input-textfield {
+    .inputTextfield {
         height: 20px;
         width: 90%;
         font-size: 1rem;
@@ -20,7 +20,7 @@
         }
     }
 
-    .search-button {
+    .searchButton {
         cursor: pointer;
         height: 30px;
         width: 70px;

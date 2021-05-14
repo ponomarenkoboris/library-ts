@@ -25,7 +25,18 @@ const config: typeof webpack.Configuration = {
             },
             {
                 test: /\.(css|scss)$/i,
-                use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: true
+                        }
+                    },
+                    'postcss-loader',
+                    'sass-loader'
+                ]
             },
             {
                 test: /\.(png|jpe?g)$/i,
@@ -44,6 +55,7 @@ const config: typeof webpack.Configuration = {
         new ForkTsCheckerWebpackPlugin({
             async: false
         }),
+        new MiniCssExtractPlugin(),
         new CleanWebpackPlugin()
     ],
     devtool: 'inline-source-map',

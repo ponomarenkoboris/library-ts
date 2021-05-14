@@ -2,7 +2,7 @@ import React, {useRef} from 'react'
 import { useAppDispatch } from "../../app/state";
 import { addNewBooks } from "../../app/books";
 import { useLoaderContext } from "../../context/LoaderContext";
-import './Search.scss';
+import searchStyles from './Search.module.scss';
 
 type DebounceReturn = (this: any) => void
 type DebounceProps = () => Promise<void>
@@ -34,6 +34,7 @@ export function Search() {
     const dispatch = useAppDispatch()
     const { setLoaderStatus } = useLoaderContext()
 
+    // TODO loader слишком рано исчезает (исправить)
     async function getRequest(): Promise<void> {
         if (!inputField.current?.value.trim() || !buttonSearch.current) return;
         accessControlToMakeSearch(inputField.current, buttonSearch.current)
@@ -41,8 +42,7 @@ export function Search() {
             setLoaderStatus('enable')
             const response = await fetch(`http://openlibrary.org/search.json?q=${inputField.current?.value}`);
             const data = await response.json();
-            if (data.docs) {
-                console.log(data.docs)
+            if (data.docs.length !== 0) {
                 dispatch(addNewBooks(data.docs))
                 setLoaderStatus('disable')
                 accessControlToMakeSearch(inputField.current, buttonSearch.current)
@@ -57,9 +57,9 @@ export function Search() {
     }
 
     return (
-        <div className="input-wrapper">
-            <input ref={inputField} onChange={debounce(getRequest)} type="text" className="input-textfield" placeholder="Вевдите название книги..." />
-            <button ref={buttonSearch} onClick={getRequest} className="search-button">Поиск</button>
-        </div>
+        <form className={searchStyles.inputWrapper}>
+            <input ref={inputField} onChange={debounce(getRequest)} type="text" className={searchStyles.inputTextfield} placeholder="Вевдите название книги..." />
+            <button type="submit" ref={buttonSearch} onClick={getRequest} className={searchStyles.searchButton}>Поиск</button>
+        </form>
     )
 }

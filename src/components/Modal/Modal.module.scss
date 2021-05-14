@@ -1,0 +1,30 @@
+.modalContainer {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+    padding: 10px 50px;
+    border-radius: 20px;
+
+    .modalHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .modalTitle {
+
+        }
+    }
+    .closeModal {
+        color: black;
+    }
+    .bookTitle {
+
+    }
+    .bookAuthor {
+
+    }
+    .firstPublishYear {
+
+    }
+}
